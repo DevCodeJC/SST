@@ -1,13 +1,19 @@
 <?php
 //incluir archivo de conexion
 require 'Conexion.php';
-$insertar="INSERT INTO Registros(cedula, nombre, id_cargo, id_tipo, lugar, nivel, detalles, fecha_reg) 
-VALUES ('$_POST[cedula]','$_POST[nombre]','$_POST[cargo]','$_POST[tipo]','$_POST[lugar]','$_POST[nivel]','$_POST[detalles]',CURTIME())";
+
+$cedula = mysqli_real_escape_string( $cx, $_POST['cedula'] );
+$nombre = mysqli_real_escape_string( $cx, $_POST['nombre'] );
+$cargo = mysqli_real_escape_string( $cx, $_POST['cargo'] );
+$tipo = mysqli_real_escape_string( $cx, $_POST['tipo'] );
+$lugar = mysqli_real_escape_string( $cx, $_POST['lugar'] );
+$detalles = mysqli_real_escape_string( $cx, $_POST['detalles'] );
+
+$insertar="INSERT INTO registros(cedula, nombre, id_cargo, id_tipo, lugar, detalles, fecha_reg) 
+VALUES ('$cedula','$nombre','$cargo','$tipo','$lugar','$detalles',CURTIME())";
 mysqli_query($cx,$insertar);
 //Comprobacion para envio de e-mail
-if($_POST['nivel']=='Alto'){
-	include "EnviarEmail.php";
-	}
+include "EnviarEmail.php";
 echo "<script>alert (' ¡Reporte generado exitosamente! ');
 window.location='/SST/index.php'</script>";
 ?>

@@ -1,9 +1,7 @@
 <?php
-header ('Content-type: text/html; charset=utf-8');
 require 'Conexion.php';
-mysql_query("SET NAMES 'UTF8'");
 $id_cat = $_POST['id_cat'];
-$querycat = "SELECT id_tipo, nom_tipo FROM Tipos WHERE id_cat = '$id_cat'";
+$querycat = "SELECT id_tipo, nom_tipo FROM tipos WHERE id_cat = '$id_cat' ORDER BY nom_tipo ASC";
 $resultadoT = mysqli_query($cx,$querycat);
 
 $html2 = "<option value=0>Seleccione</option>";

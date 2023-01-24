@@ -10,16 +10,15 @@ if($inicio>$final){
 	window.location='/SST/Informe.php'</script>";
 	
 }else{
-	$consulta = "SELECT `Registros`.`id_reg`, `Registros`.`cedula`, `Registros`.`nombre`, `Areas`.`nom_area`, 
-	`Cargos`.`nom_cargo`, `Categorias`.`nom_cat`,  `Tipos`.`nom_tipo`, `Registros`.`lugar`, `Registros`.`nivel`, 
-	`Registros`.`detalles`, `Registros`.`fecha_reg` 
-	FROM `Registros` 
-	LEFT JOIN `Cargos` ON `Registros`.`id_cargo` = `Cargos`.`id_cargo` 
-	LEFT JOIN `Tipos` ON `Registros`.`id_tipo` = `Tipos`.`id_tipo`
-	LEFT JOIN `Areas` ON `Cargos`.`id_area` = `Areas`.`id_area`
-	LEFT JOIN `Categorias` ON `Tipos`.`id_cat` = `Categorias`.`id_cat`
-	WHERE `Registros`.`fecha_reg` BETWEEN '".$inicio."' AND '".$final."' 
-	ORDER BY `Registros`.`id_reg` ASC";
+	$consulta = "SELECT `registros`.`id_reg`, `registros`.`cedula`, `registros`.`nombre`, `areas`.`nom_area`, 
+	`cargos`.`nom_cargo`, `categorias`.`nom_cat`,  `tipos`.`nom_tipo`, `registros`.`lugar`, `registros`.`detalles`, `registros`.`fecha_reg` 
+	FROM `registros` 
+	LEFT JOIN `cargos` ON `registros`.`id_cargo` = `cargos`.`id_cargo` 
+	LEFT JOIN `tipos` ON `registros`.`id_tipo` = `tipos`.`id_tipo`
+	LEFT JOIN `areas` ON `cargos`.`id_area` = `areas`.`id_area`
+	LEFT JOIN `categorias` ON `tipos`.`id_cat` = `categorias`.`id_cat`
+	WHERE `registros`.`fecha_reg` BETWEEN '".$inicio."' AND '".$final."' 
+	ORDER BY `registros`.`id_reg` ASC";
 
 	$resultado = mysqli_query($cx,$consulta);
 	$verif = mysqli_num_rows($resultado); //verificacion si no hay datos
@@ -42,7 +41,6 @@ if($inicio>$final){
 			<th>Categoria</th>
 			<th>Tipo</th>
 			<th>Lugar</th>
-			<th>Nivel</th>
 			<th>Detalle</th>
 			<th>Fecha</th>
 		</tr>
@@ -58,7 +56,6 @@ if($inicio>$final){
 				<td><?php echo $row['nom_cat']; ?></td>
 				<td><?php echo $row['nom_tipo']; ?></td>
 				<td><?php echo $row['lugar']; ?></td>
-				<td><?php echo $row['nivel']; ?></td>
 				<td><?php echo $row['detalles']; ?></td>
 				<td><?php echo $row['fecha_reg']; ?></td>
 			</tr>

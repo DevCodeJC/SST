@@ -8,15 +8,15 @@ require 'PHPMailer/SMTP.php';
 
 // Load Composer's autoloader
 //require 'vendor/autoload.php';
-$consulta ="SELECT `Registros`.`id_reg`, `Registros`.`cedula`, `Registros`.`nombre`, 
-`Areas`.`nom_area`, `Cargos`.`nom_cargo`, `Categorias`.`nom_cat`, `Tipos`.`nom_tipo`, 
-`Registros`.`lugar`, `Registros`.`nivel`, `Registros`.`detalles`, `Registros`.`fecha_reg` 
-FROM `Registros`
- LEFT JOIN `Cargos` ON `Registros`.`id_cargo` = `Cargos`.`id_cargo` 
-LEFT JOIN `Tipos` ON `Registros`.`id_tipo` = `Tipos`.`id_tipo` 
-LEFT JOIN `Areas` ON `Cargos`.`id_area` = `Areas`.`id_area` 
-LEFT JOIN `Categorias` ON `Tipos`.`id_cat` = `Categorias`.`id_cat`  
-ORDER BY `Registros`.`id_reg` DESC LIMIT 1";
+$consulta ="SELECT `registros`.`id_reg`, `registros`.`cedula`, `registros`.`nombre`, 
+`areas`.`nom_area`, `cargos`.`nom_cargo`, `categorias`.`nom_cat`, `tipos`.`nom_tipo`, 
+`registros`.`lugar`, `registros`.`detalles`, `registros`.`fecha_reg` 
+FROM `registros`
+ LEFT JOIN `cargos` ON `registros`.`id_cargo` = `cargos`.`id_cargo` 
+LEFT JOIN `tipos` ON `registros`.`id_tipo` = `tipos`.`id_tipo` 
+LEFT JOIN `areas` ON `cargos`.`id_area` = `areas`.`id_area` 
+LEFT JOIN `categorias` ON `tipos`.`id_cat` = `categorias`.`id_cat`  
+ORDER BY `registros`.`id_reg` DESC LIMIT 1";
 
 $res = mysqli_query($cx,$consulta);
 while ($row = mysqli_fetch_assoc($res)){
@@ -28,7 +28,6 @@ while ($row = mysqli_fetch_assoc($res)){
 	$categoria = $row['nom_cat'];
 	$tipo = $row['nom_tipo'];
 	$lugar = $row['lugar'];
-	$nivel = $row['nivel'];
 	$detalles = $row['detalles'];
 	$fecha = $row['fecha_reg'];
 	}
@@ -41,16 +40,16 @@ try {
     //Configuracion de servidor
     $mail->SMTPDebug = 0;					                      // Enable verbose debug output
     $mail->isSMTP();                                            // Send using SMTP
-    $mail->Host       = 'smtp.office365.com';                    // Set the SMTP server to send through
+    $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-    $mail->Username   = 'correo@correo.com.co';                     // SMTP username
-    $mail->Password   = '123456';                               // SMTP password
+    $mail->Username   = 'laboratoriossiegfriedsst@gmail.com';                     // SMTP username
+    $mail->Password   = 'uxkicfuwzqvgidps';                               // SMTP password
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
     $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
     //Recipients
-    $mail->setFrom('soporte.tic@siegfried.com.co', 'Notificador');
-    $mail->addAddress('jymoreno@siegfried.com.co');     	// Add a recipient
+    $mail->setFrom('laboratoriossiegfriedsst@gmail.com', 'Notificador');
+    $mail->addAddress('ycervera@siegfried.com.co');         	// Add a recipient
     //$mail->addAddress('ellen@example.com');               		// Name is optional
     //$mail->addReplyTo('info@example.com', 'Information');
     //$mail->addCC('cc@example.com');
@@ -65,7 +64,7 @@ try {
 	// Activo condificacción utf-8
 	$mail->CharSet = 'UTF-8';
     $mail->Subject = 'Reporte No.'.$id.' ';
-    $mail->Body    = 'Nuevo reporte critico:<br/><br/>'
+    $mail->Body    = 'Nuevo reporte en plataforma SST:<br/><br/>'
 	.'Cédula: '.$cedula.'<br/>'
 	.'Nombre: '.$nombre.'<br/>'
 	.'Área: '.$area.'<br/>'
@@ -74,7 +73,8 @@ try {
 	.'Tipo: '.$tipo.'<br/>'
 	.'Lugar: '.$lugar.'<br/>'
 	.'Detalles: '.$detalles.'<br/>'
-	.'Fecha: '.$fecha.'<br/><br/><br/>'
+	.'Fecha: '.$fecha.'<br/><br/>'
+    .'Para descargar informe consulte https://prescripcion.siegfried.com.co/SST/Informe.php'.'<br/><br/>'
 	.'Esto es un e-mail de notificación, por favor NO responder.';
     //$mail->AltBody = '';
     $mail->send();
