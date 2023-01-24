@@ -42,14 +42,14 @@ try {
     $mail->isSMTP();                                            // Send using SMTP
     $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-    $mail->Username   = 'laboratoriossiegfriedsst@gmail.com';                     // SMTP username
-    $mail->Password   = 'uxkicfuwzqvgidps';                               // SMTP password
+    $mail->Username   = 'prueba@siegfried.com.co';                     // SMTP username
+    $mail->Password   = 'Prueba.2022';                               // SMTP password
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
     $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
     //Recipients
-    $mail->setFrom('laboratoriossiegfriedsst@gmail.com', 'Notificador');
-    $mail->addAddress('ycervera@siegfried.com.co');         	// Add a recipient
+    $mail->setFrom('prueba@siegfried.com.co', 'Notificador');
+    $mail->addAddress('jmperez@siegfried.com.co');         	// Add a recipient
     //$mail->addAddress('ellen@example.com');               		// Name is optional
     //$mail->addReplyTo('info@example.com', 'Information');
     //$mail->addCC('cc@example.com');
@@ -74,7 +74,7 @@ try {
 	.'Lugar: '.$lugar.'<br/>'
 	.'Detalles: '.$detalles.'<br/>'
 	.'Fecha: '.$fecha.'<br/><br/>'
-    .'Para descargar informe consulte https://prescripcion.siegfried.com.co/SST/Informe.php'.'<br/><br/>'
+    .'Para descargar informe consulte https://url.com/Informe.php'.'<br/><br/>'
 	.'Esto es un e-mail de notificación, por favor NO responder.';
     //$mail->AltBody = '';
     $mail->send();
